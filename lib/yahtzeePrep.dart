@@ -1,11 +1,14 @@
 import "package:flutter/material.dart";
 import "dart:math";
 
-void main() // 25
+void main() 
 {
   runApp(Yahtzee());
 }
 
+// Stateless Widget - Unchanged (Stateful Widget could be replaced with BloC Providers)
+
+// Fixed --> Always not change 
 class Yahtzee extends StatelessWidget
 {
   Yahtzee({super.key});
@@ -25,11 +28,16 @@ class YahtzeeHome extends StatefulWidget
   State<YahtzeeHome> createState() => YahtzeeHomeState();
 }
 
+
+// Handles the Main Screen (Thats why its returning Scaffold)
 class YahtzeeHomeState extends State<YahtzeeHome>
 {
+
+  //Professor created Dice List --> Dice Class is needed (Inheritance?)
   var total = 0;
   List<Dice> theDice = [Dice(),Dice(),Dice(),Dice(),Dice(), ];
 
+  // Building the Widget 
   @override
   Widget build( BuildContext context )
   { 
@@ -57,8 +65,7 @@ class YahtzeeHomeState extends State<YahtzeeHome>
   }
 }
 
-// shows a box with dots and a 'hold' button
-// debugging: and a 'roll' button
+// Handling the Dice Components (Dots / Hold /Roll)
 class Dice extends StatefulWidget
 {
   // ds is named so we can have roll call it.
@@ -70,6 +77,8 @@ class Dice extends StatefulWidget
   int roll() { return ds.roll(); }
 }
 
+
+//Why Professor is splitting Dice & DiceState ? 
 class DiceState extends State<Dice>
 {
   var face = 0; // number of dots showing in this Dice (die)

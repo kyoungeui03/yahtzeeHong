@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/file_stuff.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IncrementState {
@@ -16,7 +17,7 @@ class IncrementCubit extends Cubit<IncrementState> {
 }
 
 void main() {
-  runApp(const MyApp());
+  runApp(FileStuff());
 }
 
 class MyApp extends StatelessWidget {
