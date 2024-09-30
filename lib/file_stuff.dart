@@ -66,7 +66,7 @@ class FileStuffHome extends StatelessWidget
   { String myStuff = "/Users/kyoungeuihong/Desktop/ITP368";
     String filePath = "$myStuff/writegrocery.txt";
     File groceryFile = File(filePath); // defines the file 
-    // groceryFile.writeAsStringSync("put this in the file");
+    groceryFile.writeAsStringSync("put this in the file");
   }
 }
 
