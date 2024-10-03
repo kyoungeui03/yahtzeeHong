@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pancake.dart';
+import 'package:flutter_application_1/routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IncrementState {
@@ -17,7 +17,7 @@ class IncrementCubit extends Cubit<IncrementState> {
 }
 
 void main() {
-  runApp(PancakeApp());
+  runApp(RoutesDemo());
 }
 
 class MyApp extends StatelessWidget {
