@@ -110,7 +110,7 @@ class LightsOutPage extends StatelessWidget{
               ),
               FloatingActionButton(
                 onPressed: () {
-                  int n = int.parse(tec.text); // Default to 5 if parsing fails
+                  int n = int.parse(tec.text); 
                   context.read<PanelCubit>().update(n);
                 },
                 child: Icon(Icons.refresh), // Use an icon for the button
