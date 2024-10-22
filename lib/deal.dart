@@ -4,46 +4,51 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // State class for each suitcase
 class SuitcaseState {
-  late int value;
-  late bool isRevealed;
+  final int value;
+  final bool isRevealed;
 
   SuitcaseState(this.value, this.isRevealed);
+
+  SuitcaseState copyWith({int? value, bool? isRevealed}) {
+    return SuitcaseState(
+      value ?? this.value,
+      isRevealed ?? this.isRevealed,
+    );
+  }
 }
 
-// Cubit class for each state
+// Cubit class for managing suitcase states
 class SuitcaseCubit extends Cubit<List<SuitcaseState>> {
   SuitcaseCubit() : super([]);
 
-  // generates the suitcases with random values
+  // Generates the suitcases with random values
   void generateSuitcases() {
     List<int> values = [1, 5, 10, 100, 1000, 5000, 10000, 100000, 500000, 1000000];
     values.shuffle(Random());
-    // Creating Suitcase Objects & emit as a list
     emit(values.map((v) => SuitcaseState(v, false)).toList());
   }
 
   // Reveal the suitcase
   void revealSuitcase(int index) {
-    List<SuitcaseState> newSuitcases = List.from(state);
-    if (index != state.length - 1) {
-      newSuitcases[index] = SuitcaseState(newSuitcases[index].value, true);
+    final updatedSuitcases = List<SuitcaseState>.from(state);
+    if (index != updatedSuitcases.length - 1) {
+      updatedSuitcases[index] = updatedSuitcases[index].copyWith(isRevealed: true);
     }
-    emit(newSuitcases);
+    emit(updatedSuitcases);
   }
 
   // Calculate Dealer's Offer
   String calculateOffer() {
     int total = 0;
     int unrevealedSuits = 0;
-    for (int i = 0; i < state.length; i++) {
-      if (state[i].isRevealed == false) {
-        total += state[i].value;
+    for (var suitcase in state) {
+      if (!suitcase.isRevealed) {
+        total += suitcase.value;
         unrevealedSuits++;
       }
     }
-    // Reveals the user's suitcase value
     if (unrevealedSuits == 1) {
-      return "\$${(state[state.length - 1].value * 1.0).toStringAsFixed(2)}";
+      return "\$${state.last.value.toStringAsFixed(2)}";
     } else if (unrevealedSuits == state.length) {
       return "Please Pick A Suitcase";
     } else {
@@ -55,13 +60,12 @@ class SuitcaseCubit extends Cubit<List<SuitcaseState>> {
 // Suitcase widget
 class Suitcase extends StatelessWidget {
   final int index;
-  Suitcase({required this.index});
+  const Suitcase({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SuitcaseCubit, List<SuitcaseState>>(
       builder: (context, suitcases) {
-        // Check if the suitcase list is empty or out of bounds
         if (suitcases.isEmpty || index >= suitcases.length) {
           return const SizedBox();
         }
@@ -69,7 +73,6 @@ class Suitcase extends StatelessWidget {
         return FloatingActionButton(
           onPressed: () {
             if (!suitcase.isRevealed) {
-              // Reveal the suitcase when it's pressed
               context.read<SuitcaseCubit>().revealSuitcase(index);
             }
           },
@@ -91,7 +94,7 @@ void main() {
 }
 
 class Deal extends StatelessWidget {
-  Deal({super.key});
+  const Deal({super.key});
 
   @override
   Widget build(BuildContext context) {
