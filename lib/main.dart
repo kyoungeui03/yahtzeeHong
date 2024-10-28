@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/deal.dart';
+import 'package:flutter_application_1/pingLob.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class IncrementState {
@@ -17,7 +17,7 @@ class IncrementCubit extends Cubit<IncrementState> {
 }
 
 void main() {
-  runApp(Deal());
+  runApp(PingLob());
 }
 
 class MyApp extends StatelessWidget {
